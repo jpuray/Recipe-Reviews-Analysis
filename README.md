@@ -128,3 +128,149 @@ Looking at the two distributions there seems to be a disproportionate amount of 
 
 ## Interesting Aggregates
 
+## Assessment of Missingness
+Our dataset, *Recipes and Ratings*, contained three columns in which there were missing values. We can determine these columns using pandas functions:
+
+|           |   0 | 
+|:----------|----:|
+| user_id   |   0 |
+| recipe_id |   0 |
+| date      |   0 |
+| rating    |   0 |
+| review    | 169 |
+
+|                |   0 |
+|:---------------|----:|
+| name           |   1 |
+| id             |   0 |
+| minutes        |   0 |
+| contributor_id |   0 |
+| submitted      |   0 |
+| tags           |   0 |
+| nutrition      |   0 |
+| n_steps        |   0 |
+| steps          |   0 |
+| description    |  70 |
+| ingredients    |   0 |
+| n_ingredients  |   0 |
+
+### We can see that there are missing values in the name, description, and review columns of the interactions and recipes dataframes.
+1. Since there is only one missing value in the name column, we cannot make a solid determination regarding the type of missingness of that column. In order to make a concrete determination of the type of missingness, we would likely need to scrape more recipe submissions and check which other submissions also had missing name values.
+&nbsp;
+2. For the review column, we determined that the missingness type is likely MAR. That is, the missingness of the review column is dependent upon another column. Likely columns for which the missingness of reviews would be dependent on includes the rating column. Unless the user who left a rating on the recipe felt especially strong about the recipe (e.g. strongly disliked (1) or strongly liked (5)), then they would be unlikely to go into written detail about their thoughts on the recipe. 
+&nbsp;
+3. In terms of the description column, there is a possibility of the description being NMAR (Not Missing at Random). Some recipe submissions simply do not require descriptions for the recipe as determined at the discretion of the user who submitted it. Thus, the missingness of the description is independent of any of the other columns of the recipes dataframe.  
+
+---
+
+### After cleaning, merging, and adding necessary variables to our dataframe, our dataframe appeared as so:
+|    | name                                 |     id |   minutes |   contributor_id | tags                                                                                                                                                                                                                                                                                               | nutrition                                     |   n_steps | steps                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | description                                                                                                                                                                                                                                                                                                                                                                       | ingredients                                                                                                                                                                                                                             |   n_ingredients |   avg_rating | time label   |
+|---:|:-------------------------------------|-------:|----------:|-----------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------|----------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------:|-------------:|:-------------|
+|  0 | 1 brownies in the world    best ever | 333281 |        40 |           985201 | ['60-minutes-or-less', 'time-to-make', 'course...                                                                       | [138.4, 10.0, 50.0, 3.0, 3.0, 19.0, 6.0]      |        10 | ['heat the oven to 350f and arrange the rack i...                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | these are the most; chocolatey, moist, rich, d...                                                                                                              | ['bittersweet chocolate', 'unsalted butter', '...                                                          |               9 |            4 | <=40         |
+|  1 | 1 in canada chocolate chip cookies   | 453467 |        45 |          1848091 | ['60-minutes-or-less', 'time-to-make', 'cuisin...                                                                                                                                      | [595.1, 46.0, 211.0, 22.0, 13.0, 51.0, 26.0]  |        12 | ['pre-heat oven the 350 degrees f', 'in a mixi...                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | this is the recipe that we use at my school ca...                                                                                                                                            | ['white sugar', 'brown sugar', 'salt', 'margar...                                                                             |              11 |            5 | >40          |
+|  2 | 412 broccoli casserole               | 306168 |        40 |            50969 | ['60-minutes-or-less', 'time-to-make', 'course...                                                                                                                                               | [194.8, 20.0, 6.0, 32.0, 22.0, 36.0, 3.0]     |         6 | ['preheat oven to 350 degrees', 'spray a 2 qua...                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | since there are already 411 recipes for brocco...| ['frozen broccoli cuts', 'cream of chicken sou...                                                                                                                                      |               9 |            5 | <=40         |
+|  6 | millionaire pound cake               | 286009 |       120 |           461724 | ['time-to-make', 'course', 'cuisine', 'prepara... | [878.3, 63.0, 326.0, 13.0, 20.0, 123.0, 39.0] |         7 | ['freheat the oven to 300 degrees', 'grease a...                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | why a millionaire pound cake?  because it's su...                                                                                                                                                                | ['butter', 'sugar', 'eggs', 'all-purpose flour...                                                                                                                                |               7 |            5 |   >40          |
+|  7 | 2000 meatloaf                        | 475785 |        90 |          2202916 | ['time-to-make', 'course', 'main-ingredient', ...                                                                                                                                             | [267.0, 30.0, 12.0, 12.0, 29.0, 48.0, 2.0]    |        17 | ['pan fry bacon , and set aside on a paper tow...| ready, set, cook! special edition contest entr...                                                                                                                                                                          |['meatloaf mixture', 'unsmoked bacon', 'goat c... |              13 |            5 | >40          |
+
+Since we utilize the avg_rating column in our data analysis, and there are missing values (as shown below), we determined it necessary to test the missingness dependency of avg_rating on the column, minutes.
+<iframe src="assets/missing-comp.html" width=800 height=600 frameBorder=0></iframe>
+
+To test if the avg_rating column is MAR, we execute a permutation test. The code to do so is included below:
+```py
+def test_missing(col,k=1000):
+    df = cleaned_food.copy() # create a copy of the cleaned dataframe
+    
+    # calculating the observed test statistic for our permutation test
+    non_missing_mean = df[~df['avg_rating'].isna()][col].mean()
+    missing_mean = df[df['avg_rating'].isna()][col].mean()
+    obs_diff_mean = abs(non_missing_mean-missing_mean)
+    
+    results = [] #empty list to store results
+    
+    #perform k iterations of the permutation test 
+    for i in range(k):
+        df[col] = np.random.permutation(df[col]) # shuffle the specified column
+        non_missing_mean_test = df[~df['avg_rating'].isna()][col].mean() # non-missing rows 
+        missing_mean_test = df[df['avg_rating'].isna()][col].mean() # missing rows 
+        diff_mean = abs(non_missing_mean_test-missing_mean_test) # compute the difference in means
+        results.append(diff_mean) # append test statistic to results list
+    p_val = (np.array(results)>=obs_diff_mean).mean() # compute the p value based on the results
+    return p_val
+```
+
+When we run the function above with the input column specified as 'minutes', we get the following output:
+```py
+test_missing('minutes')
+0.0
+```
+
+That is, we conclude that at the significance level of p = 5%, that there is likely a dependency on the 'minutes' column.
+
+We then test the dependency of the avg_rating column on another column, 'n_ingredients', which includes the number of ingredients that the recipe calls for. We do so in a similar manner to our test for minutes:
+```py
+test_missing('n_ingredients')
+0.06
+```
+
+In this case, we conclude that it is unlikely that the avg_rating column depends on 'n_ingredients' because it is above the 5% significance level.
+
+---
+
+## Hypothesis Testing
+Recall, we are looking into the question:
+> What is the relationship between the cooking time and average rating of recipes?
+
+To complete an in-depth analysis of our question based on the data, we chose to run a permutation test. Details of our test include:
+
+---
+
+**Null Hypothesis**: Ratings for recipes that take less than or equal to 40 minutes to complete have the same ratings as recipes that take greater than 40 minutes to complete.
+
+
+**Alternative Hypothesis**: Recipes that take less than or equal to 40 minutes to complete tend to have higher ratings
+
+We chose these as our null and alternative hypotheses because we found that in plotting the relationship between minutes and average rating, most of the high ratings for recipes could be found in the recipes that took less than 40 minutes. Thus, we decided to compare the two groups (>40 and <=40) in our test.
+
+**Test Statistic**: Difference in Means
+
+Because our Alternative Hypothesis specifies that ratings are *higher* for recipes with durations less than or equal to 40 minutes, we choose an unsigned difference in means to compare the two.
+
+**P-Value**: 5% significance level
+
+We chose the conventional significance level for our p-value.
+
+---
+For ease of permutation testing, we added a column to our dataframe that specifies whether the recipe falls within the <=40 or >40 group.
+
+To perform our permutation test, we created a function that takes the number of iterations of the test we'd like to perform (with a default value of 100), and returns the p-value for our test. Code is as follows:
+```py
+def perm_test(k=100):
+    df = cleaned_food.copy() # create a copy of the cleaned_food dataframe
+    rows_greater_40 = df[df['time label']== '>40'] # isolate >40 minute duration values in a dataframe
+    rows_less_40 = df[df['time label']=='<=40'] # isolate <=40 duration values in a dataframe
+    
+    obs_stat = rows_less_40['avg_rating'].mean() - rows_greater_40['avg_rating'].mean() #calculate observed difference in means
+    
+    results = [] # create empty list for results
+    
+    #perform k iterations of test
+    for i in range(k):
+        df['time label'] = np.random.permutation(df['time label']) # shuffle time label column
+        row_g40 = df[df['time label']=='>40'] # get dataframe of >40 minute recipes
+        row_l40 = df[df['time label']=='<=40'] #get dataframe of <= 40 minute recipes
+        
+        ts = row_l40['avg_rating'].mean()- row_g40['avg_rating'].mean() #calculate the current test statistic
+        
+        results.append(ts) #append test statistic to results list
+    p_val = (np.array(results)>=obs_stat).mean() #calculate p value for our test
+    return p_val
+```
+
+When we run this function with the default values, we get the following output:
+
+```py
+perm_test()
+0.0
+```
+
+#### Because our p-value for the test is below our pre-determined significance level of 5%, we *reject* the null hypothesis. That is, we conclude that it is more than likely that the two groups (duration > 40 and duration <= 40) result in different average ratings.
