@@ -7,17 +7,28 @@ The dataset we used for our analysis was made up of two datasets, one with recip
 Breakdown of datasets:
   RAW_RECIPES.CSV
   
-  | Syntax | Description |
+  | Variables | Description |
 | ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
+| 'name' | Recipe name |
+| 'id' | Recipe Id |
+| 'minutes' | Minutes to prepare recipe |
+|'contributor_id' | Recipe Id |
+| 'submitted' | Recipe name |
+| 'tags' | Recipe Id |
+| 'nutrition' | Recipe name |
+| 'n_steps' | Recipe Id |
+| 'steps' | Recipe name |
+| 'description' | Recipe Id |
 
   RAW_INTERACTIONS.CSV
   
-  | Syntax | Description |
+  | Variables | Description |
 | ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
+| user_id | Title |
+| recipe_id | Text |
+| date | Title |
+| rating | Text |
+| review | Title |
 
 # Cleaning and EDA 
   
