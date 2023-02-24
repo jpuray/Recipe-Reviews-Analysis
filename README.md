@@ -1,11 +1,14 @@
 # Recipe-Reviews-Analysis
 Project 3 for DSC 80 at UCSD
 
+## Introduction 
 
+# Cleaning and EDA 
 
----
-layout: page
-title: Project 3
-description: Description of Project 3.
-nav_exclude: true
----
+## Data Cleaning
+
+## Univariate Analysis
+
+## Bivariate Analysis
+
+## Interesting Aggregates
