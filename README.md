@@ -10,16 +10,16 @@ Breakdown of datasets:
   
 | Variables | Description |
 | ----------- | ----------- |
-| 'name' | Recipe name |
-| 'id' | Recipe Id |
-| 'minutes' | Minutes to prepare recipe |
-|'contributor_id' | Recipe Id |
-| 'submitted' | Recipe name |
-| 'tags' | Recipe Id |
-| 'nutrition' | Recipe name |
-| 'n_steps' | Recipe Id |
-| 'steps' | Recipe name |
-| 'description' | Recipe Id |
+| name | Recipe name |
+| id | Recipe Id |
+| minutes | Minutes to prepare recipe |
+|contributor_id | Recipe Id |
+| submitted | Recipe name |
+| tags | Recipe Id |
+| nutrition | Recipe name |
+| n_steps | Recipe Id |
+| steps' | Recipe name |
+| description | Recipe Id |
 
  ***RAW_INTERACTIONS.CSV***
   
