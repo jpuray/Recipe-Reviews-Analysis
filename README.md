@@ -1,6 +1,6 @@
 # Recipe-Reviews-Analysis
 In this project we studied the relationship between the minutes and average rating of a recipe. We wanted to learn if the time it takes for a recipe to be cooked had any effect on the average rating of that recipe. More specifically, we wanted to know if shorter recipes (40 minutes or less) would have a higher average rating than longer recipes (40 minutes+). 
-
+---
 ## Introduction 
 The dataset we used for our analysis was made up of two datasets, one with recipes and the other with ratings. The following data can be found here: ***include link to dataset***. 
 
@@ -30,7 +30,8 @@ Breakdown of datasets:
 | date | Title |
 | rating | Text |
 | review | Title |
--------------------------
+
+-------
 
 # Cleaning and EDA 
   
