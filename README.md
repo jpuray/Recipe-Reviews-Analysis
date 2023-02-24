@@ -113,7 +113,7 @@ First we will plot the distribution of the variables `minutes` and `avg_rating` 
 
 >Plotting the distribution of the `avg_rating` gives us the following histogram:
 
-<iframe src="data_viz/avgRating_hist.html" width=800 height=600 frameBorder=1></iframe>
+<iframe src="assets/avgRating_hist.html" width=800 height=600 frameBorder=1></iframe>
 
 The average ratings in the dataset are skewed left and tend to have more positive ratings as opposed to negative ones. Over 60% of the recipes have an average rating of 5 while less than 5% have a rating of 3 or less. 
 
