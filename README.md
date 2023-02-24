@@ -46,7 +46,19 @@ Breakdown of datasets:
   
 ## Data Cleaning
 
-To start we began by merging the two datasets. We then noticed that the merged dataset, had many values in the `rating` column with the value 0. 
+To start by loading in the data and merging the two datasets. 
+```py
+
+# loading data 
+recipes = pd.read_csv('data/RAW_recipes.csv')
+interactions = pd.read_csv('data/RAW_interactions.csv')
+# merging DataFrames together 
+merged = recipes.merge(interactions, left_on='id', right_on='recipe_id', how='left')
+```
+
+The resulting dataframe has over 200,000 rows with 17 columns. This makes sense as we are merging the interactions dataset to the recipes dataset. The recipes will be duplicated but the interactions data are unique which we will use to calcualte averge rating later on. 
+
+We noticed that the merged dataset, had many values in the `rating` column with the value 0. 
 
 |    |   rating |
 |---:|---------:|
@@ -73,17 +85,7 @@ We then added the column `time label` which contains the string values '40<=' an
 2. 'user_id',
 3. 'recipe_id',
 4. 'date',
-5. 'rating' 
-
-### Removing outliers
-
-When looking at the distributions of our variables we noticed the variable `minutes` some outliers that we wanted to deal with before our analysis. Plotting the distribution of the `minutes` column gave us the follwing histogram: 
-
-<iframe src="assets/minutes_dirty.html" width=800 height=600 frameBorder=1></iframe>
-
-In order to identify outliers we used the Inter quartile range (IQR) method. In which we define outliers as any value less than then the (25th percentile * 1.5) or greater than (75th percentile * 1.5). Then when a value was detected as an outlier it was removed from the dataset as these values would be unrepresentative of our general population of recipes. After removing the outliers our new histogram became:
-
-<iframe src="assets/minutes_clean.html" width=800 height=600 frameBorder=1></iframe>
+5. 'rating' (already used to calculate average rating) 
 
 
 Afterwards we are left with the follow DataFrame:
@@ -98,8 +100,6 @@ Afterwards we are left with the follow DataFrame:
 
 
 ---- 
-
-
 
 ## Univariate Analysis
 
@@ -128,7 +128,9 @@ Looking at the two distributions there seems to be a disproportionate amount of 
 
 ## Interesting Aggregates
 
-## Assessment of Missingness
+
+--- 
+# Assessment of Missingness
 Our dataset, *Recipes and Ratings*, contained three columns in which there were missing values. We can determine these columns using pandas functions:
 
 |           |   0 | 
