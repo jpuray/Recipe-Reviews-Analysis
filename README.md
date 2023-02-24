@@ -7,7 +7,7 @@ We believe answering this question will be useful to the creators who post there
 
 --- 
 
-### Introducing the Data
+## Introducing the Data
 
 The dataset we will be using for our analysis is made up of two datasets. `RAW_RECIPES.csv` which contains over  one with over 70,000 recipes `RAW_INTERACTIONS.csv` which contains over 200,000 reviews of the recipes. Both datasets were obtained through the website ***food.com***. 
 
@@ -128,9 +128,21 @@ Looking at the two distributions there seems to be a disproportionate amount of 
 
 ## Interesting Aggregates
 
+Next we will create a pivot table in order to compare the average rating of the shorter recipes vs the longer recipes over the number of ingredients to get a better idea of how the averages may differ.
+
+| time label   |     1 |       2 |       3 |       4 |       5 |       6 |       7 |       8 |       9 |      10 |      11 |      12 |      13 |      14 |      15 |      16 |      17 |      18 |      19 |      20 |      21 |      22 |      23 |      24 |      25 |      26 |      27 |      28 |      29 |      30 |   31 |   32 |   33 |
+|:-------------|------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|-----:|-----:|-----:|
+| <=40         | 4.792 | 4.74624 | 4.71655 | 4.70764 | 4.71222 | 4.69611 | 4.67469 | 4.66409 | 4.68101 | 4.66748 | 4.67962 | 4.69613 | 4.71457 | 4.66231 | 4.68861 | 4.68911 | 4.72753 | 4.72819 | 4.71846 | 4.77003 | 4.72861 | 4.82624 | 4.83673 | 4.69231 | 4.11111 | 4.89853 | 4.8     | 5       | 4.90476 | 5       |  nan |  nan |    5 |
+| >40          | 5     | 4.63603 | 4.73703 | 4.65007 | 4.71809 | 4.64523 | 4.65759 | 4.64848 | 4.63874 | 4.65828 | 4.69217 | 4.6648  | 4.69096 | 4.65559 | 4.68107 | 4.66201 | 4.64584 | 4.75513 | 4.67791 | 4.67346 | 4.68863 | 4.89439 | 4.82418 | 4.79658 | 4.80882 | 4.81481 | 4.59048 | 4.88571 | 4.94118 | 4.69565 |    5 |    5 |  nan |
+
+Calculating the differnece in means across ingredients: 
+```py
+pivot.diff().mean(axis=1)
+```
+ We get that the difference in means is -0.006732 showing a slightly higher average rating for shorter cooking time recipes. 
 
 --- 
-# Assessment of Missingness
+## Assessment of Missingness
 Our dataset, *Recipes and Ratings*, contained three columns in which there were missing values. We can determine these columns using pandas functions:
 
 |           |   0 | 
