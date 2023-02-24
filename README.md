@@ -5,9 +5,10 @@ In this project we studied the relationship between the minutes and average rati
 The dataset we used for our analysis was made up of two datasets, one with recipes and the other with ratings. The following data can be found here: ***include link to dataset***. 
 
 Breakdown of datasets:
-  RAW_RECIPES.CSV
+
+***RAW_RECIPES.CSV***
   
-  | Variables | Description |
+| Variables | Description |
 | ----------- | ----------- |
 | 'name' | Recipe name |
 | 'id' | Recipe Id |
@@ -20,9 +21,9 @@ Breakdown of datasets:
 | 'steps' | Recipe name |
 | 'description' | Recipe Id |
 
-  RAW_INTERACTIONS.CSV
+ ***RAW_INTERACTIONS.CSV***
   
-  | Variables | Description |
+| Variables | Description |
 | ----------- | ----------- |
 | user_id | Title |
 | recipe_id | Text |
