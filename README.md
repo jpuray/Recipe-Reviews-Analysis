@@ -1,5 +1,5 @@
 # Recipe-Reviews-Analysis
-In this project we studied the relationship between the minutes and average rating of a recipe. We wanted to learn if the time it takes for a recipe to be cooked had any effect on the average rating of that recipe. More specifically, we wanted to know if shorter recipes shorter recipes (40 minutes or less) would have a higher average rating than longer recipes (40 minutes+). 
+In this project we studied the relationship between the minutes and average rating of a recipe. We wanted to learn if the time it takes for a recipe to be cooked had any effect on the average rating of that recipe. More specifically, we wanted to know if shorter recipes (40 minutes or less) would have a higher average rating than longer recipes (40 minutes+). 
 
 ## Introduction 
 The dataset we used for our analysis was made up of two datasets, one with recipes and the other with ratings. The following data can be found here: ***include link to dataset***. 
@@ -30,11 +30,13 @@ Breakdown of datasets:
 | date | Title |
 | rating | Text |
 | review | Title |
+-------------------------
 
 # Cleaning and EDA 
   
 ## Data Cleaning
-To start we began by merging the two datasets. We then noticed that the merged dataset, we'll call this *cleaned_food*, had many values in the **rating** column with the value 0. This could pose a problem for our analysis since we will be using the average rating of recipes and values of 0 would decrease our averages. However, after looking at the website where the data had been scraped from (food.com) we realised that it was not possible to rate a recipe less than 1 star. Upon further analysis we identified a section labeled 'tweaks' which contained reviews but no ratings. Thus, we concluded that the rows with 0 star rating were from the 'tweak' section and that those stars are acutally supposed to be missing by design. Therefore, we changed the ratings with 0 to NaN so that these rows did not affect our average ratings. 
+To start we began by merging the two datasets. We then noticed that the merged dataset, we'll call this `cleaned_food`, had many values in the `rating` column with the value 0. This could pose a problem for our analysis since we will be using the average rating of recipes and values of 0 would decrease our averages. After looking at the website where the data had been scraped from (food.com) we realised that it was not possible to rate a recipe less than 1 star. Upon further analysis we identified a section labeled 'tweaks' which contained reviews but no ratings. Thus, we concluded that the rows with 0 star rating were from the 'tweak' section and that those stars are acutally supposed to be missing by design. Therefore, we changed the ratings with 0 to NaN so that these rows did not affect our average ratings. 
+
   
 
 ## Univariate Analysis
