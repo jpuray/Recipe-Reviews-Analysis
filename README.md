@@ -51,6 +51,8 @@ Afterwards we are left with the follow DataFrame:
 
 ## Univariate Analysis
 
+<iframe src="data_viz/avgRating_hist.html" width=800 height=600 frameBorder=1></iframe> 
+
 ## Bivariate Analysis
 
 ## Interesting Aggregates
