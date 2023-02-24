@@ -176,7 +176,7 @@ Our dataset, *Recipes and Ratings*, contained three columns in which there were 
 |  7 | 2000 meatloaf                        | 475785 |        90 |          2202916 | ['time-to-make', 'course', 'main-ingredient', ...                                                                                                                                             | [267.0, 30.0, 12.0, 12.0, 29.0, 48.0, 2.0]    |        17 | ['pan fry bacon , and set aside on a paper tow...| ready, set, cook! special edition contest entr...                                                                                                                                                                          |['meatloaf mixture', 'unsmoked bacon', 'goat c... |              13 |            5 | >40          |
 
 Since we utilize the avg_rating column in our data analysis, and there are missing values (as shown below), we determined it necessary to test the missingness dependency of avg_rating on the column, minutes.
-<iframe src="assets/missing-comp.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/updated-distplot.html" width=800 height=600 frameBorder=0></iframe>
 
 To test if the avg_rating column is MAR, we execute a permutation test. The code to do so is included below:
 ```py
